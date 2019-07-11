@@ -1,0 +1,10 @@
+/.metadata/
+/.recommenders/
+*/.settings
+*/.classpath
+*/.project
+*/*.class
+*/target/
+settings.xml
+/Servers
+/RepMaven
