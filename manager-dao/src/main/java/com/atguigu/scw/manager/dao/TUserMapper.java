@@ -5,7 +5,8 @@ import com.atguigu.scw.manager.bean.example.TUserExample;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TUserMapper {
     long countByExample(TUserExample example);
 

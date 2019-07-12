@@ -8,3 +8,5 @@
 settings.xml
 /Servers
 /RepMaven
+WebContent/
+!.gitkeep
