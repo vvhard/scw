@@ -31,7 +31,7 @@ public class UserController {
 		boolean rs = userService.register(user);
 		if(rs) {
 			session.setAttribute("loginUser", user);
-			return manager + "main";
+			return "redirect:/main.html";
 		}else {
 			// 注册失败，表单回显，提示错误信息
 			model.addAttribute("regError", "用户名已被使用");
@@ -52,7 +52,7 @@ public class UserController {
 		}
 		// 登陆成功，当前用户存放到session中
 		session.setAttribute("loginUser", u);
-		return manager + "main";
+		return "redirect:/main.html";
 	}
 
 }

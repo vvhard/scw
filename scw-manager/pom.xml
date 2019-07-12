@@ -7,6 +7,7 @@
 		<groupId>com.atguigu.scw</groupId>
 		<artifactId>scw-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+			<relativePath>../scw-parent/pom.xml</relativePath>
 	</parent>
 	<modules>
 		<module>manager-pojo</module>
