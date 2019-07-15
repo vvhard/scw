@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.scw.manager.dao.TUserMapper">
-
-
-
   <resultMap id="BaseResultMap" type="com.atguigu.scw.manager.bean.TUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="loginacct" jdbcType="VARCHAR" property="loginacct" />
@@ -15,6 +12,46 @@
   <select id="selectByPrimaryKey" resultType="com.atguigu.scw.manager.bean.TUser">
   	select * from t_user where id=#{id}
   </select>
+  <!-- 分页查询 -->
+  <select id="selectByPagination" resultType="com.atguigu.scw.manager.bean.TUser">
+  	select * 
+  	from t_user
+  	<if test="queryText != null">
+  		<!-- '%#{queryText}%'这样写会查不出来，因为#后面的变成占位符？，？前面有‘’时会识别成字符串 -->
+  		where loginacct like concat('%',#{queryText},'%')
+  	</if> 
+  	order by id desc
+  	limit #{start},#{size}
+  </select>
+	<!-- 查询符合条件的记录数-->
+  <select id="selectRecordNums" resultType="int">
+		select 
+			count(*) 
+		from t_user
+		<where>
+			<if test="queryText != null">
+			<!-- '%#{queryText}%'这样写会查不出来，因为#后面的变成占位符？，？前面有‘’时会识别成字符串 -->
+			and loginacct like concat('%',#{queryText},'%')
+			</if>
+		</where> 
+  </select>
+  <!-- 按条件更新用户 -->
+  <update id="updateUser" parameterType="com.atguigu.scw.manager.bean.TUser">
+  	update t_user 
+  	<set>
+  	  	<if test="username != null">
+  			username=#{username},
+  		</if>
+  		<if test="username == null">
+  			username=#{loginacct},
+  		</if>
+  		<if test="email != null">
+  			email=#{email}
+  		</if>
+  		where id=#{id}
+  	</set>
+  </update>
+
   
   
   <sql id="Example_Where_Clause">
@@ -46,6 +83,7 @@
       </foreach>
     </where>
   </sql>
+  
     <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -75,6 +113,7 @@
       </foreach>
     </where>
   </sql>
+  
   <sql id="Base_Column_List">
     id, loginacct, userpswd, username, email, createtime
   </sql>
@@ -136,6 +175,97 @@
       order by ${orderByClause}
     </if>
   </select>
- 
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.scw.manager.bean.example.TUserExample">
+    delete from t_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.scw.manager.bean.TUser">
+    insert into t_user (id, loginacct, userpswd, 
+      username, email, createtime
+      )
+    values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR}, 
+      #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
+      )
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.scw.manager.bean.example.TUserExample" resultType="java.lang.Long">
+    select count(*) from t_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginacct != null">
+        loginacct = #{record.loginacct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpswd != null">
+        userpswd = #{record.userpswd,jdbcType=CHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user
+    set id = #{record.id,jdbcType=INTEGER},
+      loginacct = #{record.loginacct,jdbcType=VARCHAR},
+      userpswd = #{record.userpswd,jdbcType=CHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.scw.manager.bean.TUser">
+    update t_user
+    <set>
+      <if test="loginacct != null">
+        loginacct = #{loginacct,jdbcType=VARCHAR},
+      </if>
+      <if test="userpswd != null">
+        userpswd = #{userpswd,jdbcType=CHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.scw.manager.bean.TUser">
+    update t_user
+    set loginacct = #{loginacct,jdbcType=VARCHAR},
+      userpswd = #{userpswd,jdbcType=CHAR},
+      username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   
 </mapper>

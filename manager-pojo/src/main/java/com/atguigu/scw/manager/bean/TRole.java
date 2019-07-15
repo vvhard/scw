@@ -30,4 +30,10 @@ public class TRole {
     public void setCreatetime(String createtime) {
         this.createtime = createtime == null ? null : createtime.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TRole [id=" + id + ", name=" + name + ", createtime=" + createtime + "]";
+	}
+    
 }

@@ -4,8 +4,11 @@ import com.atguigu.scw.manager.bean.TType;
 import com.atguigu.scw.manager.bean.example.TTypeExample;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TTypeMapper {
     long countByExample(TTypeExample example);
 
@@ -28,4 +31,10 @@ public interface TTypeMapper {
     int updateByPrimaryKeySelective(TType record);
 
     int updateByPrimaryKey(TType record);
+
+	int selectRecordNums(Map<String, Object> map);
+
+	List<TType> selectByPagination(Map<String, Object> map);
+
+	int updateType(TType type);
 }

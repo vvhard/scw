@@ -5,7 +5,8 @@ import com.atguigu.scw.manager.bean.example.TPermissionExample;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TPermissionMapper {
     long countByExample(TPermissionExample example);
 
@@ -28,4 +29,6 @@ public interface TPermissionMapper {
     int updateByPrimaryKeySelective(TPermission record);
 
     int updateByPrimaryKey(TPermission record);
+
+	List<TPermission> selectRolePermissions(int roleid);
 }

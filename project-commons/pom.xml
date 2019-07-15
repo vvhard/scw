@@ -4,9 +4,9 @@
   <artifactId>project-commons</artifactId>
   <!-- 工具类 -->
   <parent>
-    <groupId>com.atguigu</groupId>
-  	<artifactId>project-parent</artifactId>
-  	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.atguigu</groupId>
+	<artifactId>project-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
   </parent>
   <!-- 导入公共依赖的一些包 -->
 	<dependencies>

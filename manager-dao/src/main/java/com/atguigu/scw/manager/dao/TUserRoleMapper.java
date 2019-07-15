@@ -5,7 +5,8 @@ import com.atguigu.scw.manager.bean.example.TUserRoleExample;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TUserRoleMapper {
     long countByExample(TUserRoleExample example);
 
@@ -28,4 +29,6 @@ public interface TUserRoleMapper {
     int updateByPrimaryKeySelective(TUserRole record);
 
     int updateByPrimaryKey(TUserRole record);
+
+	int insertOne(int userid, int roleid);
 }

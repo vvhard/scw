@@ -1,7 +1,9 @@
 package com.atguigu.scw.manager.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,5 +59,55 @@ public class UserServiceImpl implements UserService{
 		// 当查询到的记录只有一个的时候，返回对象，否则返回null
 		return list.size() == 1?list.get(0):null;
 	}
+	@Override
+	public List<TUser> getAll() {
+		// 传入null ，查询所有
+		return tUserMapper.selectByExample(null);
+	}
+	/**
+	 * 分页查询，包含模糊查询的分页查询
+	 */
+	@Override
+	public List<TUser> pageQueryData(Map<String, Object> map) {
+		return tUserMapper.selectByPagination(map);
+	}
+	/**
+	 * 查询符合条件的记录数
+	 */
+	@Override
+	public int pageQueryCount(Map<String, Object> map) {
+		
+		return tUserMapper.selectRecordNums(map);
+	}
+	@Override
+	public int addUser(TUser user) {
+		return tUserMapper.insert(user);
+		
+	}
+	@Override
+	public int deleteUserById(int id) {
+		return tUserMapper.deleteByPrimaryKey(id);
+	}
+	@Override
+	public int updateUser(TUser user) {
 
+		return tUserMapper.updateUser(user);
+		
+	}
+	@Override
+	public TUser queryUserBuId(int id) {
+		
+		return tUserMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public int deleteUsers(int[] userid) {
+		TUserExample example = new TUserExample();
+		Criteria criteria = example.createCriteria();
+		ArrayList<Integer> list = new ArrayList<>();
+		for (Integer id : userid) {
+			list.add(id);
+		}
+		criteria.andIdIn(list);
+		return tUserMapper.deleteByExample(example);
+	}
 }

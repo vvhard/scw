@@ -1,7 +1,10 @@
 package com.atguigu.scw.manager.bean;
 
+import java.util.List;
+
 public class TPermission {
-    private Integer id;
+
+	private Integer id;
 
     private Integer pid;
 
@@ -10,8 +13,20 @@ public class TPermission {
     private String icon;
 
     private String url;
+    
+    private boolean checked;
+    
+    private List<TPermission> childs;
 
-    public Integer getId() {
+    public List<TPermission> getChilds() {
+		return childs;
+	}
+
+	public void setChilds(List<TPermission> childs) {
+		this.childs = childs;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -50,4 +65,19 @@ public class TPermission {
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
     }
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+    
+    @Override
+	public String toString() {
+		return "TPermission [id=" + id + ", pid=" + pid + ", name=" + name + ", icon=" + icon + ", url=" + url
+				+ ", checked=" + checked + ", childs=" + childs + "]";
+	}
+
 }
