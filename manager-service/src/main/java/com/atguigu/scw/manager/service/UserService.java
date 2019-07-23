@@ -27,5 +27,9 @@ public interface UserService {
 
 	public int deleteUsers(int[] userid);
 
+	public TUser checkUserInfo(String loginacct, String email);
+
+	public boolean resetPswdByToken(String password, String token);
+
 
 }

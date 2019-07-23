@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	pageContext.setAttribute("navInfo", "用戶维护");
+	pageContext.setAttribute("curUrl", "permission/user/list"); 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html lang="UTF-8">
 <head>
 <meta charset="UTF-8">
@@ -142,6 +147,7 @@ table tbody td:nth-child(even) {
 			});
 
 		});
+
 		
 		// 异步分页查询
 		function pageQuery(pageno) {
@@ -309,5 +315,6 @@ table tbody td:nth-child(even) {
 			window.location.href = "${ctp}/permission/user/assign?id=" + id;
 		}
 	</script>
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
 </body>
 </html>

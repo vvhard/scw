@@ -29,7 +29,6 @@ public class DispatcherController {
 		// 查出拥有的权限，显示节点
 		if(session.getAttribute("permission") == null) {
 			List<TPermission> permissions = tPermissionService.getAllWithStructer();
-			System.out.println(permissions);
 			session.setAttribute("permissions", permissions);
 		}
 		return "manager/main";

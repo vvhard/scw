@@ -1,30 +1,31 @@
 package com.atguigu.scw.manager.controller.permission;
 
 
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.atguigu.project.EmailUtils;
 import com.atguigu.project.MD5Util;
 import com.atguigu.project.MyStringUtils;
 import com.atguigu.scw.manager.bean.TRole;
+import com.atguigu.scw.manager.bean.TToken;
 import com.atguigu.scw.manager.bean.TUser;
 import com.atguigu.scw.manager.bean.TUserRole;
 import com.atguigu.scw.manager.bean.tool.AJAXResult;
 import com.atguigu.scw.manager.bean.tool.Page;
 import com.atguigu.scw.manager.service.TRoleService;
+import com.atguigu.scw.manager.service.TTokenService;
 import com.atguigu.scw.manager.service.TUserRoleService;
 import com.atguigu.scw.manager.service.UserService;
 
@@ -40,6 +41,8 @@ public class UserController {
 	private TRoleService roleService;
 	@Autowired
 	private TUserRoleService userRoleService;
+	@Autowired
+	private TTokenService tokenService;
 	/**
 	 * 用户注册
 	 * 注册失败时，通过model携带注册信息和错误信息返回页面做表单回显
@@ -61,9 +64,95 @@ public class UserController {
 			model.addAttribute("user",user);
 			return "forward:/reg.jsp";
 		}
-		
 	}
-	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate(); // 使session失效
+		return "redirect:/index.jsp";
+	}
+	@ResponseBody
+	@RequestMapping("/sendEmail")
+	public Object fgtpswd(String loginacct,String email,HttpSession session) {
+		AJAXResult result = new AJAXResult();
+		Map<String, String> map = new HashMap<>();
+		// 校验信息的正确性
+		TUser user = userService.checkUserInfo(loginacct,email);
+		if(user != null) {
+			// 生成token
+			String tokenStr = UUID.randomUUID().toString().replace("-", "");
+			TToken token = new TToken();
+			token.setPswToken(tokenStr);
+			token.setUserid(user.getId());
+			// 保存到数据库
+			try {
+				if(tokenService.getTokenByUserid(user.getId()) == null) {
+					tokenService.addToken(token);
+				}else {
+					tokenService.saveToken(token);
+				}
+			} catch (Exception e) {
+				map.put("msg", "邮件发送失败");
+				result.setSuccess(false);
+				return result;
+			}
+			// 发送邮件
+			boolean rs = EmailUtils.sendEmail(email, tokenStr);
+			if(rs) {
+				map.put("msg", "邮件发送成功，请检查邮箱");
+				result.setSuccess(true);
+			}else {
+				map.put("msg", "邮件发送失败");
+				result.setSuccess(false);
+			}
+			
+		}else {
+			map.put("msg", "账户信息校验失败!");
+			result.setSuccess(false);
+			
+		}
+		
+		result.setData(map);
+		return result;
+	}
+	@RequestMapping("/toreset")
+	public String toResetPage() {
+		return "manager/resetpwd";
+	}
+	@ResponseBody
+	@RequestMapping("/resetpswd")
+	public Object resetpswd(String password,String token) {
+		AJAXResult result = new AJAXResult();
+		Map<String, String> map = new HashMap<>();
+		try {
+
+
+			if(userService.resetPswdByToken(password,token)) {
+				try {
+					// 更新token
+					// 生成token
+					String tokenStr = UUID.randomUUID().toString().replace("-", "");
+					
+					TToken t= tokenService.getTokenByPswToken(token);
+					tokenService.updatePswToken(t.getId(),tokenStr);
+				} catch (Exception e) {
+					map.put("msg", "链接已经过期，重置失败");
+					throw e;
+				}
+				map.put("msg", "重置成功");
+				result.setSuccess(true);
+				
+			}else {
+				map.put("msg", "重置失败,请重试");
+				result.setSuccess(false);
+			}
+		} catch (Exception e) {
+			map.put("msg", "链接已经过期，重置失败");
+			result.setSuccess(false);
+		}
+		
+		result.setData(map);
+		return result;
+	}
 	@RequestMapping("/login")
 	public String login(TUser user,HttpSession session) {
 		TUser u = userService.login(user);
@@ -75,7 +164,25 @@ public class UserController {
 		}
 		// 登陆成功，当前用户存放到session中
 		session.setAttribute("loginUser", u);
-		return "redirect:/main.html";
+		// 自动登陆功能不做,主要使用cookie
+		// 用户是否使用了记住我，rememberme页面提交的表单复选框参数
+//		if("1".equals(rememberme)) {
+//			// 将记住我的token发送给用户
+//			// 生成token
+//			String tokenStr = UUID.randomUUID().toString().replace("-", "");
+//			TToken token = new TToken();
+//			token.setUserid(u.getId()); // 设置token对应的用户id
+//			token.setAutoToken(tokenStr);
+//			boolean flag = tokenService.saveAutoLoginToken(token);
+//			// 历览器保存cookie
+//			Cookie cookie = new Cookie("autoLogin", tokenStr);
+//			cookie.setMaxAge(3600*24*7); // 一周过期
+//			// springmvc出于安全考虑，只能设置当前工程路径的cookie
+//			// cookie默认在"/"
+//			cookie.setPath(session.getServletContext().getContextPath());
+//			respone.addCookie(cookie);
+//		}
+		return "redirect:/main.html"; 
 	}
 	
 	@RequestMapping("/list")

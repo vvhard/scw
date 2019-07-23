@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	pageContext.setAttribute("navInfo", "项目分类");
+	pageContext.setAttribute("curUrl", "serviceman/pt/list"); 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="UTF-8">
 <head>
@@ -51,8 +55,8 @@ table tbody td:nth-child(even) {
 									<input class="form-control has-success" type="text" placeholder="请输入查询条件" id="queryText">
 								</div>
 							</div>
-							<button type="button" class="btn btn-warning">
-								<i class="glyphicon glyphicon-search"></i> 查询
+							<button type="button" class="btn btn-warning" id="queryBtn">
+								<i class="glyphicon glyphicon-search" ></i> 查询
 							</button>
 						</form>
 						<button type="button" class="btn btn-danger" style="float: right; margin-left: 10px;" onclick="deleteTypes()">
@@ -292,5 +296,6 @@ table tbody td:nth-child(even) {
 			
 
 	</script>
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
 </body>
 </html>

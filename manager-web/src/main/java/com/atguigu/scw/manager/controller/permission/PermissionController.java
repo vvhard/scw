@@ -28,7 +28,8 @@ public class PermissionController {
 		return tPermissionServiceImpl.getAllWithoutStructer();
 	}
 	@RequestMapping("/add")
-	public String add() {
+	public String add(int id,Model model) {
+		model.addAttribute("pid", id);
 		return "manager/permission/permission_add";
 	}
 

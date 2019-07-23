@@ -1,10 +1,12 @@
 package com.atguigu.scw.manager.bean;
 
+import java.util.List;
+
 public class TCert {
     private Integer id;
 
     private String name;
-
+    
     public Integer getId() {
         return id;
     }

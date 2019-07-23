@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%	
+	pageContext.setAttribute("navInfo", "许可维护"); 
+	pageContext.setAttribute("curUrl", "permission/perm/list"); 
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="UTF-8">
   <head>
@@ -40,7 +45,7 @@
 				<form id="pForm" role="form">
 				  <div class="form-group">
 					<label for="exampleInputPassword1">许可名称</label>
-					<input type="text" class="form-control" id="permissionname" placeholder="请输入许可名称">
+					<input type="text" class="form-control" id="permissionname" placeholder="请输入许可名称" pidVal="${pid }">
 				  </div>
 				  <div class="form-group">
 					<label for="exampleInputPassword1">链接地址</label>
@@ -90,7 +95,7 @@
 		    		data : {
 		    			"name" : permissionname,
 		    			"url"  : $("#url").val(),
-		    			"pid"  : "${param.id}"
+		    			"pid"  : $("#permissionname").attr("pidVal")
 		    		},
 		    		beforeSend : function() {
 		    			loadingIndex = layer.msg('处理中', {icon: 16});
@@ -113,5 +118,7 @@
 
         
     </script>
+
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
   </body>
 </html>

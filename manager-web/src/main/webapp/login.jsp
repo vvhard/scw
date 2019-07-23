@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 
+	Cookie[] cookies = request.getCookies();
+	for(Cookie cookie:cookies){
+		// 带了登陆token
+		if(cookie.getName().equals("autoLogin")){
+			// 检查缓存
+			// 缓存没有，查数据库
+			// 重定向
+			response.sendRedirect(request.getContextPath()+"/main.html");
+		}
+	}
+
+--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
   <head>
@@ -55,11 +68,11 @@
 		  </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> 记住我
+            <input type="checkbox" name="rememberme" value="1"> 记住我
           </label>
           <br>
           <label>
-            忘记密码
+           		<a href="${ctp }/forgetpswd.jsp" > 忘记密码</a>
           </label>
           <label style="float:right">
             <a href="${ctp }/reg.jsp">我要注册</a>
@@ -129,6 +142,7 @@
             alert("功能暂未开放");
         }
     }
+    
     </script>
   </body>
 </html>

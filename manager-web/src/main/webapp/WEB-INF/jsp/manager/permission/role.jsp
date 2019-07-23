@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	pageContext.setAttribute("navInfo", "角色维护");
+	pageContext.setAttribute("curUrl", "permission/role/list"); 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="UTF-8">
 <head>
@@ -304,5 +308,6 @@ table tbody td:nth-child(even) {
 			window.location.href = "${ctp}/permission/role/assign?id=" + id;
 		}
 	</script>
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
 </body>
 </html>

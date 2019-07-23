@@ -39,5 +39,9 @@ public interface TUserMapper {
 
 	int updateUser(TUser user);
 
+	TUser selectUserWith(@Param("loginacct")String loginacct, @Param("email")String email);
+
+	boolean updatePasswordByToken(@Param("password")String password,@Param("token") String token);
+
 	
 }

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	pageContext.setAttribute("navInfo", "角色维护");
+	pageContext.setAttribute("curUrl", "permission/role/list"); 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -158,6 +162,9 @@
 						url : "haha" // 不使用url属性
 					}
 				},
+				check : {
+					enable : true
+				},
 				view : {
 					//自定义显示的效果
 					addDiyDom : function(treeId, treeNode) { // 用于在节点上固定显示用户自定义控件
@@ -170,14 +177,13 @@
 						//console.log(treeNode);
 						//改图标；找到当前元素图标显示的节点，将这个节点的class设置为当前节点的icon
 						if (treeNode.icon) {
-							icoObj.removeClass("button ico_docu ico_open").addClass(treeNode.icon).css("background","");
+							icoObj.removeClass("button ico_docu ico_open");
+							icoObj.before("<span class='" + treeNode.icon  +"'></span>");
 						}
 
 					}
-				},
-				check : {
-					enable : true
 				}
+
 			};
 
 			//从数据库查出的所有权限节点数据
@@ -241,5 +247,7 @@
 			}
 		}
 	</script>
+		    <%pageContext.setAttribute("curUrl", "permission/role/list"); %>
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
 </body>
 </html>

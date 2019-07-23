@@ -41,7 +41,7 @@
 		</javaClientGenerator>
 
 		<!-- 只要是数据库对应的pojo，我们都以T开头 -->
-		<!-- 指定要逆向的每一张表,用户表 -->
+		<!-- 指定要逆向的每一张表,用户表 
 		<table tableName="t_user" domainObjectName="TUser"></table>
 		<table tableName="t_user_role" domainObjectName="TUserRole"></table>
 		<table tableName="t_type" domainObjectName="TType"></table>
@@ -64,6 +64,8 @@
 		<table tableName="t_cert" domainObjectName="TCert"></table>
 		<table tableName="t_advertisement" domainObjectName="TAdvertisement"></table>
 		<table tableName="t_account_type_cert" domainObjectName="TAccountTypeCert"></table>
+		-->
+		<table tableName="t_token" domainObjectName="TToken"></table>
 		
 	</context>
 </generatorConfiguration>

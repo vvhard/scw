@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	pageContext.setAttribute("navInfo", "许可维护"); 
+	pageContext.setAttribute("curUrl", "permission/perm/list"); 
+	
+	
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
@@ -117,7 +123,8 @@
 						//console.log(treeNode);
 						//改图标；找到当前元素图标显示的节点，将这个节点的class设置为当前节点的icon
 						if (treeNode.icon) {
-							icoObj.removeClass("button ico_docu ico_open").addClass(treeNode.icon).css("background","");
+							icoObj.removeClass("button ico_docu ico_open");
+							icoObj.before("<span class='" + treeNode.icon  +"'></span>");
 						}
 
 					},
@@ -133,7 +140,7 @@
 							s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="addNode('+treeNode.id+')" href="#" >&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
 						} else if ( treeNode.level == 1 ) {
 							s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  onclick="editNode('+treeNode.id+')" href="#" title="修改权限信息">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
-							if (treeNode.children.length == 0) {
+							if (treeNode.children == null) {
 								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="deleteNode('+treeNode.id+')" href="#" >&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
 							}
 							s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="addNode('+treeNode.id+')" href="#" >&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
@@ -199,5 +206,7 @@
         }
      
 	</script>
+		    <%pageContext.setAttribute("curUrl", "permission/perm/list"); %>
+	<%@include file="/WEB-INF/includes/common-js.jsp" %>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.atguigu.scw.manager.bean;
+package com.atguigu.scw.manager.bean.example;
 
 import java.util.ArrayList;
 import java.util.List;

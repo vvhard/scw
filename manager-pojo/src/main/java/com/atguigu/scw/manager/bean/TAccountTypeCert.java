@@ -3,7 +3,7 @@ package com.atguigu.scw.manager.bean;
 public class TAccountTypeCert {
     private Integer id;
 
-    private String accttype;
+    private Integer accttypeid;
 
     private Integer certid;
 
@@ -15,12 +15,12 @@ public class TAccountTypeCert {
         this.id = id;
     }
 
-    public String getAccttype() {
-        return accttype;
+    public int getAccttype() {
+        return accttypeid;
     }
 
-    public void setAccttype(String accttype) {
-        this.accttype = accttype == null ? null : accttype.trim();
+    public void setAccttype(int accttypeid) {
+        this.accttypeid = accttypeid;
     }
 
     public Integer getCertid() {
@@ -30,4 +30,13 @@ public class TAccountTypeCert {
     public void setCertid(Integer certid) {
         this.certid = certid;
     }
+
+	public Integer getAccttypeid() {
+		return accttypeid;
+	}
+
+	public void setAccttypeid(Integer accttypeid) {
+		this.accttypeid = accttypeid;
+	}
+    
 }

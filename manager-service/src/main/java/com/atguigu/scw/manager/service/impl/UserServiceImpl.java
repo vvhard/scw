@@ -110,4 +110,13 @@ public class UserServiceImpl implements UserService{
 		criteria.andIdIn(list);
 		return tUserMapper.deleteByExample(example);
 	}
+	@Override
+	public TUser checkUserInfo(String loginacct, String email) {
+		return tUserMapper.selectUserWith(loginacct,email);
+	}
+	@Override
+	public boolean resetPswdByToken(String password, String token) {
+		
+		return tUserMapper.updatePasswordByToken(MD5Util.digest(password),token);
+	}
 }
