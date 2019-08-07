@@ -31,4 +31,6 @@ public interface TPermissionMapper {
     int updateByPrimaryKey(TPermission record);
 
 	List<TPermission> selectRolePermissions(int roleid);
+
+	List<TPermission> selectUserPermission(String loginacct);
 }

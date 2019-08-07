@@ -23,9 +23,9 @@
     <meta name="description" content="">
     <meta name="keys" content="">
     <meta name="author" content="">
-	<link rel="stylesheet" href="${ctp}/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${ctp}/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${ctp}/css/login.css">
+	<link rel="stylesheet" href="${ctp}/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${ctp}/static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${ctp}/static/css/login.css">
 	<style>
 
 	</style>
@@ -81,9 +81,9 @@
         <a class="btn btn-lg btn-success btn-block" onclick="dologin()" > 登录</a>
       </form>
     </div>
-    <script src="${ctp}/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${ctp}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${ctp}/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
+    <script src="${ctp}/static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${ctp}/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${ctp}/static/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
     <script>
     $.validator.setDefaults({
     	showErrors:function(map,list){

@@ -119,4 +119,9 @@ public class UserServiceImpl implements UserService{
 		
 		return tUserMapper.updatePasswordByToken(MD5Util.digest(password),token);
 	}
+	@Override
+	public void checkedOk(int memberid) {
+		tUserMapper.updateRealNameStatus(memberid);
+		
+	}
 }

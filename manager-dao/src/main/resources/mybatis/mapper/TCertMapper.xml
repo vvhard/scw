@@ -23,7 +23,11 @@
   		where name like concat('%',#{queryText},'%')
   	</if> 
   </select>
-  
+  <select id="selectByAcctType" resultType="com.atguigu.scw.manager.bean.TCert">
+  	select tc.id,tc.name 
+	from t_cert tc join t_account_type_cert tatc on tc.id = tatc.certid join t_account_type tat on tatc.accttypeid=tat.id
+	where tat.name=#{acctType}; 
+  </select>
   
   <sql id="Example_Where_Clause">
     <where>

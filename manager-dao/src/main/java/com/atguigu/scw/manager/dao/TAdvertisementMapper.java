@@ -4,8 +4,11 @@ import com.atguigu.scw.manager.bean.TAdvertisement;
 import com.atguigu.scw.manager.bean.example.TAdvertisementExample;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TAdvertisementMapper {
     long countByExample(TAdvertisementExample example);
 
@@ -28,4 +31,8 @@ public interface TAdvertisementMapper {
     int updateByPrimaryKeySelective(TAdvertisement record);
 
     int updateByPrimaryKey(TAdvertisement record);
+
+	int selectAdvCountWithMap(Map<String, Object> map);
+
+	List<TAdvertisement> selectAdvsWithMap(Map<String, Object> map);
 }

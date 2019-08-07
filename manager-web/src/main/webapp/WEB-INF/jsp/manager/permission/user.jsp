@@ -14,9 +14,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<link rel="stylesheet" href="${ctp }/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${ctp }/css/font-awesome.min.css">
-<link rel="stylesheet" href="${ctp }/css/main.css">
+<link rel="stylesheet" href="${ctp }/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${ctp }/static/css/font-awesome.min.css">
+<link rel="stylesheet" href="${ctp }/static/css/main.css">
 <style>
 .tree li {
 	list-style-type: none;
@@ -101,10 +101,10 @@ table tbody td:nth-child(even) {
 		</div>
 	</div>
 
-	<script src="${ctp }/jquery/jquery-2.1.1.min.js"></script>
-	<script src="${ctp }/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${ctp}/script/docs.min.js"></script>
-	<script src="${ctp}/layer/layer.js"></script>
+	<script src="${ctp }/static/jquery/jquery-2.1.1.min.js"></script>
+	<script src="${ctp }/static/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${ctp}/static/script/docs.min.js"></script>
+	<script src="${ctp}/static/layer/layer.js"></script>
 	<script type="text/javascript">
 		var likeflg = false;
 		$(function() {
@@ -192,7 +192,7 @@ table tbody td:nth-child(even) {
 										tableContent += '		<button type="button" onclick="deleteUser('
 														+ user.id
 														+ ',\''
-														+ +user.loginacct
+														+ user.loginacct
 														+ '\')"class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
 										tableContent += '	</td>';
 										tableContent += '</tr>';

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.scw.manager.dao.TMemeberTicketMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.scw.manager.bean.TMemeberTicket">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="memberid" jdbcType="INTEGER" property="memberid" />
+    <result column="ticketid" jdbcType="VARCHAR" property="ticketid" />
+  </resultMap>
+    <resultMap id="myResultMap" type="java.util.HashMap">
+    <id column="id" jdbcType="INTEGER" property="memberid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="cardnum" jdbcType="VARCHAR" property="cardnum" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="accttype" jdbcType="VARCHAR" property="accttype" />
+    <result column="NAME_" jdbcType="VARCHAR" property="procname" />
+    <result column="VERSION_" jdbcType="INTEGER" property="version" />
+    <!-- 通过id关联进行嵌套查询 -->
+  	<collection property="certs" ofType="java.util.List" column="id" select="selectcert">
+  	</collection>
+
+  </resultMap>
+  <select id="selectcert" resultType="java.lang.String">
+  	select iconpath from t_member_cert tmc join t_member_ticket tmt on tmt.id=tmc.memberid;
+  </select>
+  <select id="selectByMap" resultMap="myResultMap">
+  	SELECT distinct tm.id,tm.username,tm.realname,tm.cardnum,tm.tel,tm.accttype,arp.NAME_,arp.VERSION_ FROM 
+					t_member_ticket tmt join act_ru_execution are on tmt.ticketid=are.ID_ 
+					join act_re_procdef arp on are.PROC_DEF_ID_ = arp.ID_
+					join t_member tm on tm.id=tmt.memberid
+					join t_member_cert tmc on tmt.id=tmc.memberid
+	<if test="queryText != null">
+			<!-- '%#{queryText}%'这样写会查不出来，因为#后面的变成占位符？，？前面有‘’时会识别成字符串 -->
+		where tm.username like concat('%',#{queryText},'%')  
+	</if>
+	limit #{start},#{size}
+  </select>
+  <select id="countByMap" resultType="int">
+  	select count(*) from t_member_ticket
+  	<if test="queryText != null">
+			<!-- '%#{queryText}%'这样写会查不出来，因为#后面的变成占位符？，？前面有‘’时会识别成字符串 -->
+		where tm.username like concat('%',#{queryText},'%')  
+	</if>
+	limit #{start},#{size}
+  </select>
+  <insert id="insertTmt" parameterType="com.atguigu.scw.manager.bean.TMemeberTicket" useGeneratedKeys="true" keyProperty="id">
+  	insert into t_member_ticket(memberid,ticketid) value(#{memberid},#{ticketid})
+  </insert>
+  <select id="selectTaskId" resultType="String">
+  	SELECT art.ID_ FROM 
+					t_member_ticket tmt join act_ru_execution are on tmt.ticketid=are.ID_  join act_ru_task art on are.ID_ = art.EXECUTION_ID_
+	where tmt.memberid=#{memberid}
+  </select>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, memberid, ticketid
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.scw.manager.bean.example.TMemeberTicketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member_ticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_ticket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_member_ticket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.scw.manager.bean.example.TMemeberTicketExample">
+    delete from t_member_ticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.scw.manager.bean.TMemeberTicket">
+    insert into t_member_ticket (id, memberid, ticketid
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberid,jdbcType=INTEGER}, #{ticketid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.scw.manager.bean.TMemeberTicket" useGeneratedKeys="true" keyProperty="id">
+    insert into t_member_ticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberid != null">
+        memberid,
+      </if>
+      <if test="ticketid != null">
+        ticketid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null">
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="ticketid != null">
+        #{ticketid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.scw.manager.bean.example.TMemeberTicketExample" resultType="java.lang.Long">
+    select count(*) from t_member_ticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_member_ticket
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberid != null">
+        memberid = #{record.memberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ticketid != null">
+        ticketid = #{record.ticketid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_member_ticket
+    set id = #{record.id,jdbcType=INTEGER},
+      memberid = #{record.memberid,jdbcType=INTEGER},
+      ticketid = #{record.ticketid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.scw.manager.bean.TMemeberTicket">
+    update t_member_ticket
+    <set>
+      <if test="memberid != null">
+        memberid = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="ticketid != null">
+        ticketid = #{ticketid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.scw.manager.bean.TMemeberTicket">
+    update t_member_ticket
+    set memberid = #{memberid,jdbcType=INTEGER},
+      ticketid = #{ticketid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

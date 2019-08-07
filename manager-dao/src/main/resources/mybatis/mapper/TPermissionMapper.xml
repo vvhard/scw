@@ -14,7 +14,12 @@
 	from  t_role r join t_role_permission rp on r.id=rp.roleid join t_permission p   on p.id=rp.permissionid 
 	where r.id=#{roleid}
   </select>
-  
+  <select id="selectUserPermission" resultType="com.atguigu.scw.manager.bean.TPermission">
+	select tp.id,tp.pid,tp.name,tp.icon,tp.url
+	from t_permission tp  join t_role_permission trp on tp.id = trp.permissionid 
+						  join t_role tr on tr.id = trp.roleid join t_user_role tur on tur.roleid = tr.id join t_user tu on tu.id = tur.userid
+	where tu.loginacct=#{loginacct}
+  </select>
   
   
   <sql id="Example_Where_Clause">

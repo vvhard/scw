@@ -35,4 +35,6 @@ public interface TCertMapper {
 	int selectCountWithCondition(Map<String, Object> map);
 
 	List<TCert> selectByPagination(Map<String, Object> map);
+
+	List<TCert> selectByAcctType(String acctType);
 }

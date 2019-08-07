@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.atguigu.scw.manager.bean.TPermission;
+import com.atguigu.scw.manager.bean.TUser;
 import com.atguigu.scw.manager.service.TPermissionService;
 
 @Controller
@@ -26,9 +27,11 @@ public class DispatcherController {
 		if(session.getAttribute("loginUser") == null) {
 			return "redirect:/login.jsp";
 		}
+		TUser user = (TUser)session.getAttribute("loginUser");
 		// 查出拥有的权限，显示节点
 		if(session.getAttribute("permission") == null) {
-			List<TPermission> permissions = tPermissionService.getAllWithStructer();
+			List<TPermission> permissions = tPermissionService.getUserPermission(user.getLoginacct());
+			tPermissionService.getAllWithStructer();
 			session.setAttribute("permissions", permissions);
 		}
 		return "manager/main";

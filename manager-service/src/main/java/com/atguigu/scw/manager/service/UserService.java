@@ -31,5 +31,7 @@ public interface UserService {
 
 	public boolean resetPswdByToken(String password, String token);
 
+	public void checkedOk(int memberid);
+
 
 }

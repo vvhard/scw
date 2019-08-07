@@ -10,9 +10,9 @@
     <meta name="description" content="">
     <meta name="keys" content="">
     <meta name="author" content="">
-	<link rel="stylesheet" href="${ctp}/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${ctp}/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${ctp}/css/login.css">
+	<link rel="stylesheet" href="${ctp}/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${ctp}/static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${ctp}/static/css/login.css">
 	<style>
 
 	</style>
@@ -21,7 +21,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <div><a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a></div>
+          <div><a class="navbar-brand" href="index.jsp" style="font-size:32px;">尚筹网-创意产品众筹平台</a></div>
         </div>
       </div>
     </nav>
@@ -47,11 +47,11 @@
         <a class="btn btn-lg btn-success btn-block" onclick="confirm()" > 确定</a>
       </form>
     </div>
-    <script src="${ctp}/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${ctp}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${ctp}/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
-    <script src="${ctp}/layer/layer.js"></script>
-    <script src="${ctp}/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
+    <script src="${ctp}/static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${ctp}/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${ctp}/static/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
+    <script src="${ctp}/static/layer/layer.js"></script>
+    <script src="${ctp}/static/jquery-validation-1.13.1/dist/jquery.validate.min.js"></script>
     <script>
 	    $.validator.setDefaults({
 	    	showErrors:function(map,list){

@@ -66,7 +66,9 @@
 	<update id="updatePasswordByToken">
 		update t_user set userpswd=#{password} where id in (select userid from t_token where psw_token=#{token})
 	</update>
-
+	<update id="updateRealNameStatus">
+		update t_user set authstatus='1' where id=#{memberid}
+	</update>
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"

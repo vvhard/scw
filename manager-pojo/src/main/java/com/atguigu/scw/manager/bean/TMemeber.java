@@ -9,6 +9,8 @@ public class TMemeber {
 
     private String username;
 
+    private String tel;
+
     private String email;
 
     private String authstatus;
@@ -51,6 +53,14 @@ public class TMemeber {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
     }
 
     public String getEmail() {
@@ -100,4 +110,11 @@ public class TMemeber {
     public void setAccttype(String accttype) {
         this.accttype = accttype == null ? null : accttype.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TMemeber [id=" + id + ", loginacct=" + loginacct + ", userpswd=" + userpswd + ", username=" + username
+				+ ", tel=" + tel + ", email=" + email + ", authstatus=" + authstatus + ", usertype=" + usertype
+				+ ", realname=" + realname + ", cardnum=" + cardnum + ", accttype=" + accttype + "]";
+	}
 }

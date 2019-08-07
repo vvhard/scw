@@ -64,8 +64,14 @@
 		<table tableName="t_cert" domainObjectName="TCert"></table>
 		<table tableName="t_advertisement" domainObjectName="TAdvertisement"></table>
 		<table tableName="t_account_type_cert" domainObjectName="TAccountTypeCert"></table>
-		-->
 		<table tableName="t_token" domainObjectName="TToken"></table>
+		<table tableName="auth_cert_temp" domainObjectName="CertAuthTemp"></table>
+		<table tableName="auth_info_temp" domainObjectName="AuthInfoTemp"></table>
+		-->
+		<table tableName="t_member_ticket" domainObjectName="TMemeberTicket"></table>
+
+
+		
 		
 	</context>
 </generatorConfiguration>

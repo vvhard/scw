@@ -5,7 +5,8 @@ import com.atguigu.scw.manager.bean.example.TMemberCertExample;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TMemberCertMapper {
     long countByExample(TMemberCertExample example);
 
@@ -28,4 +29,7 @@ public interface TMemberCertMapper {
     int updateByPrimaryKeySelective(TMemberCert record);
 
     int updateByPrimaryKey(TMemberCert record);
+
+	int insertBatch(List<TMemberCert> list);
+
 }

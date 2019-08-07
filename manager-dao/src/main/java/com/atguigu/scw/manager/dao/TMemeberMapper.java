@@ -5,7 +5,8 @@ import com.atguigu.scw.manager.bean.example.TMemeberExample;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface TMemeberMapper {
     long countByExample(TMemeberExample example);
 

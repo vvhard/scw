@@ -15,5 +15,7 @@ public interface TPermissionService {
 	public TPermission getPermissionById(int id);
 	public int updatePermission(TPermission p);
 	public int deletePermission(int id);
+	public List<TPermission> getUserPermission(String string);
+	List<TPermission> getAllWithoutStructer(String loginacct);
 
 }

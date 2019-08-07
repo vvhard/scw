@@ -43,5 +43,7 @@ public interface TUserMapper {
 
 	boolean updatePasswordByToken(@Param("password")String password,@Param("token") String token);
 
+	void updateRealNameStatus(int memberid);
+
 	
 }

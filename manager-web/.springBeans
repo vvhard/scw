@@ -11,6 +11,7 @@
 		<config>src/main/resources/spring-beans.xml</config>
 		<config>src/main/resources/spring-tx.xml</config>
 		<config>src/main/resources/spring-mybatis.xml</config>
+		<config>src/main/resources/spring-activiti.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
