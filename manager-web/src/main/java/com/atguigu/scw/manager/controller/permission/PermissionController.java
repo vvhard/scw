@@ -33,21 +33,7 @@ public class PermissionController {
 		return "manager/permission/permission_add";
 	}
 
-	@ResponseBody
-	@RequestMapping("/addPermission")
-	public Object addPermission(String name,String url,int pid) {
-		AJAXResult result = new AJAXResult();
-		// 带图标的添加以后做
-		TPermission p = new TPermission();
-		p.setName(name);
-		p.setUrl(url);
-		p.setPid(pid);
-		if(tPermissionServiceImpl.addPermission(p) == 1) {
-			result.setSuccess(true);
-		}else
-			result.setSuccess(false);
-		return result;
-	}
+	
 	@RequestMapping("/edit")
 	public String edit(int id,Model model) {
 		TPermission p = tPermissionServiceImpl.getPermissionById(id);
@@ -66,7 +52,22 @@ public class PermissionController {
 			result.setSuccess(false);
 		return result;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("/addPermission")
+	public Object addPermission(String name,String url,int pid) {
+		AJAXResult result = new AJAXResult();
+		// 带图标的添加以后做
+		TPermission p = new TPermission();
+		p.setName(name);
+		p.setUrl(url);
+		p.setPid(pid);
+		if(tPermissionServiceImpl.addPermission(p) == 1) {
+			result.setSuccess(true);
+		}else
+			result.setSuccess(false);
+		return result;
+	}
 	@ResponseBody
 	@RequestMapping("/delete")
 	public Object delete(int id) {
@@ -76,7 +77,7 @@ public class PermissionController {
 		}else
 			result.setSuccess(false);
 		return result;
-		
+	
 	}
 
 

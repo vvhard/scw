@@ -9,7 +9,6 @@
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"></property>
-	
 	</bean>
 	<!-- 扫描所有mapper -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
