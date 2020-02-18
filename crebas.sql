@@ -26,19 +26,20 @@ drop table if exists t_order;
 
 drop table if exists t_param;
 
+drop table if exists t_role_permission;
+
 drop table if exists t_permission;
 
-drop table if exists t_project;
+drop table if exists t_project_type;
 
 drop table if exists t_project_tag;
 
-drop table if exists t_project_type;
+drop table if exists t_project;
+
 
 drop table if exists t_return;
 
 drop table if exists t_role;
-
-drop table if exists t_role_permission;
 
 drop table if exists t_tag;
 
@@ -47,6 +48,46 @@ drop table if exists t_type;
 drop table if exists t_user;
 
 drop table if exists t_user_role;
+
+drop table if exists t_account_type;
+
+/*drop table if exists t_member_ticket;*/
+
+drop table if exists t_token;
+/*==============================================================*/
+/* Table: t_token                                   */
+/*==============================================================*/
+create table t_token
+(
+   id                   int(11) not null auto_increment,
+   userid 				int(11) not null ,
+   pwd_token			varchar(255),
+   auto_login_token  	varchar(255),
+   primary key (id),
+   constraint FK_Reference_9 foreign key(userid) references t_user(userid) on delete restrict on update restrict;
+);
+
+/*==============================================================*/
+/* Table: t_member_ticket                                  */
+/*==============================================================*/
+/*create table t_member_ticket
+(
+   id                   int(11) not null auto_increment,
+   accttype             char(1),
+   certid               int(11),
+   primary key (id)
+);*/
+
+/*==============================================================*/
+/* Table: t_account_type                                  */
+/*==============================================================*/
+create table t_account_type
+(
+   id                   int(11) not null auto_increment,
+   name             	varchar(11) not null,
+   primary key (id),
+   
+);
 
 /*==============================================================*/
 /* Table: t_account_type_cert                                   */
@@ -105,12 +146,13 @@ create table t_member
    loginacct            varchar(255) not null,
    userpswd             char(32) not null,
    username             varchar(255) not null,
+   tel					varchar(11) 
    email                varchar(255) not null,
    authstatus           char(1) not null,
    usertype             char(1) not null,
    realname             varchar(255),
    cardnum              varchar(255),
-   accttype             char(1),
+   accttype             varchar(255),
    primary key (id)
 );
 
