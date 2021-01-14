@@ -27,7 +27,7 @@
 		<!-- httpclient -->
 		<httpclient.version>4.5.3</httpclient.version>
 		<!-- 功能组件 -->
-		<poi.version>3.16</poi.version>
+		<poi.version>3.17</poi.version>
 		<quartz.version>2.2.3</quartz.version>
 		<!-- 数据库 -->
 		<!--druid：德鲁伊 -->
